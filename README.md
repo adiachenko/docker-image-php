@@ -1,16 +1,20 @@
-## Nginx
+# PHP Image
 
-This image requires NGINX as a reverse proxy. For example, using Docker Compose:
+## Nginx dependency
+
+This image should be used with [NGINX as a reverse proxy container](https://github.com/adiachenko/docker-image-nginx-php). For example, using Docker Compose:
 
 ```yml
 version: '3.7'
 
 services:
+  # Image: https://hub.docker.com/r/adiachenko/php
   php:
     image: adiachenko/php
     volumes:
       - ./:/opt/project:cached
 
+  # Image: https://hub.docker.com/r/adiachenko/nginx-php
   nginx:
     depends_on:
       - php
