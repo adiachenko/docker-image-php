@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-buster
+FROM php:7.3-fpm-buster
 
 # Define env variables for error reporting settings
 ENV PHP_DISPLAY_ERRORS ${PHP_DISPLAY_ERRORS:-Off}
