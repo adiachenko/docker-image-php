@@ -8,20 +8,17 @@ This image should be used with [NGINX as a reverse proxy container](https://gith
 version: '3.7'
 
 services:
-  # Image: https://hub.docker.com/r/adiachenko/php
   php:
     image: adiachenko/php
     volumes:
       - ./:/opt/project:cached
 
-  # Image: https://hub.docker.com/r/adiachenko/nginx-php
   nginx:
     depends_on:
       - php
     image: adiachenko/nginx-php
     environment:
       - NGINX_BACKEND_HOST=php
-      - NGINX_BACKEND_PORT=9000
       - NGINX_SERVER_TYPE=laravel
     ports:
       - 8000:80
@@ -34,12 +31,13 @@ services:
 This image ships with the default php.ini for production environments.
 
 The only notable change is opcache config, to prevent confusion when running container with unedited settings:
+
 - `opcache.validate_timestamps` is set to 1 to (should be set to 0 in production)
 - `opcache.revalidate_freq` is set to 0 (should be like this regardless of environment)
 
 It is recommended that you change configuration using the following environment variables rather than hardcoding `php.ini` values in the image:
 
-| Name                                | Default                           |
+| Envitonment Variable                | Default                           |
 | ----------------------------------- | --------------------------------- |
 | PHP_DISPLAY_ERRORS                  | Off                               |
 | PHP_DISPLAY_STARTUP_ERRORS          | Off                               |
