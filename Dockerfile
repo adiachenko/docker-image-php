@@ -27,7 +27,8 @@ ENV PHP_XDEBUG ${PHP_XDEBUG:-off}
 
 # Install PHP extensions
 RUN apt-get update && apt-get install -y --no-install-recommends \
-  sqlite3 libpq-dev zlib1g-dev libpng-dev libzip-dev libmemcached-dev && rm -rf /var/lib/apt/lists/* \
+  sqlite3 libpq-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libzip-dev libmemcached-dev && rm -rf /var/lib/apt/lists/* \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install bcmath pcntl exif opcache pdo_mysql pdo_pgsql gd zip \
   && yes '' | pecl install memcached-3.1.5 redis-5.2.0 xdebug-2.9.2 \
   && docker-php-ext-enable memcached redis xdebug
